@@ -2,6 +2,7 @@ import os
 from flask import Flask, jsonify
 
 from src.connector import teardown_connections
+from src.constants import BASE_PREFIX
 from src.exceptions import InvalidAPIException
 def create_app(config=None):
     '''
@@ -34,6 +35,13 @@ def create_app(config=None):
 
     @app.route('/')
     def home():
-        return 'App successfully loaded'
+        return {
+            'status': True,
+            'data': 'App successfully loaded'
+        }
+    # importing the blueprints
+    from src.user.route import User
+
+    app.register_blueprint(User, url_prefix=f'{BASE_PREFIX}/user')
     
     return app

@@ -31,26 +31,21 @@ def get_db_connection():
         )
     return g.db_connection
 
-def get_env_value(key):
+def get_env_value(key = None):
     """
     Returns enviroment dictonary or a single value according to
     the value of key.
-    If a env dict already exists in request context then that is 
-    if it does not exists then a new dict is pushed onto the flask `g`
-    stack.
     Args:
         key (str|None): the key to the enviromental value
     Returns:
         Any| dict: the value depends on the key
     """
 
-    if 'app_data_env' not in g:
-        g.app_data_env = CONFIG
-    
+   
     if key is None:
-        return g.app_data_env
+        return CONFIG
     else:
-        return g.app_data_env.get(key)
+        return CONFIG.get(key)
 
 def teardown_connections(Exception):
     """Close the connections established during request if they

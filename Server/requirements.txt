@@ -4,3 +4,4 @@ bcrypt
 pytest
 psycopg2-binary
 python-dotenv
+pandas
